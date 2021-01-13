@@ -2,9 +2,11 @@ Penjelasan/ Analisa tetris.py
 BoardWidth = 10
 BoardHeight = 22
 Speed = 300
+
 Ini adalah variabel kelas Board. BoardWidth dan BoardHeight menentukan ukuran papan
 dalam blok. Speed menentukan kecepatan game. Setiap 300 ms siklus permainan baru akan
 dimulai.
+
 def pause(self):
 if not self.isStarted:
 return
@@ -15,8 +17,12 @@ else:
 self.timer.start(Board.Speed, self)
 self.msg2Statusbar.emit(str(self.numLinesRemoved))
 self.update()
+
+
 Metode jeda menghentikan permainan. Ini menghentikan timer dan menampilkan pesan di
 bilah status.
+
+
 def timerEvent(self, event):
 if event.timerId() == self.timer.timerId():
 if self.isWaitingAfterLine:
@@ -26,6 +32,8 @@ else:
 self.oneLineDown()
 else:
 super(Board, self).timerEvent(event)
+
+
 Dalam acara pengatur waktu, saya membuat bagian baru setelah yang sebelumnya
 dijatuhkan ke bawah atau kami memindahkan bagian yang jatuh satu baris ke bawah.
 def clearBoard(self):
@@ -33,6 +41,8 @@ for i in range(Board.BoardHeight * Board.BoardWidth):
 self.board.append(Tetrominoe.NoShape)
 Metode clearBoard membersihkan papan dengan mengatur Tetrominoe.NoShape di
 setiap blok papan.def removeFullLines(self):
+
+
 numFullLines = 0
 rowsToRemove = []
 for i in range(Board.BoardHeight):
@@ -48,6 +58,8 @@ for k in range(m, Board.BoardHeight):
 for l in range(Board.BoardWidth):
 self.setShapeAt(l, k, self.shapeAt(l, k + 1))
 numFullLines = numFullLines + len(rowsToRemove)
+
+
 Jika potongan menyentuh bagian bawah, saya memanggil metode removeFullLines.saya
 menemukan semua baris penuh dan menghapusnya. saya melakukannya dengan
 memindahkan semua garis di atas garis penuh saat ini untuk dihapus satu baris ke bawah.
@@ -69,6 +81,8 @@ return True
 Dalam metode tryMove saya mencoba untuk memindahkan bentuk . Jika bentuknya berada di
 tepi papan atau berdekatan dengan bagian lain, saya mengembalikan False. Jika tidak, saya
 menempatkan potongan jatuh saat ini ke posisi baru.
+
+
 class Shape(object):
 coordsTable = (
 ((0, 0),
@@ -78,8 +92,12 @@ coordsTable = (
 (0, 0)),
 (-1, 0), (-1, 1)),
 )
+
+
 Tupel coordsTable menampung semua kemungkinan nilai koordinat dari potongan tetris
 kami. Ini adalah template dari mana semua bagian mengambil nilai koordinatnya
+
+
 def rotateLeft(self):
 if self.pieceShape == Tetrominoe.SquareShape:
 return self
@@ -89,6 +107,8 @@ for i in range(4):
 result.setX(i, self.y(i))
 result.setY(i, -self.x(i))
 return result
+
+
 Metode rotateLeft memutar bagian ke kiri. Persegi tidak harus diputar. Itulah mengapa
 saya hanya mengembalikan referensi ke objek saat ini. Potongan baru dibuat dan
 koordinatnya disetel ke bagian yang diputar.
