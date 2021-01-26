@@ -1,6 +1,5 @@
 """
-nama :M.salisianto Fahmi Zaka
-Nim: 190411100027
+nama :M.salisianto Fahmi Zaka.
 
 """
 
